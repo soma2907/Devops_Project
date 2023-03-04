@@ -16,7 +16,7 @@ pipeline {
 	  stage ('Build')  {
 	      steps {
           
-            dir('cd java-source'){
+            dir('java-source'){
             sh "mvn package"
           }
         }
@@ -51,8 +51,8 @@ pipeline {
             steps {
                 rtMavenRun (
                     tool: "maven", // Tool name from Jenkins configuration
-                    pom: 'cd java-source/pom.xml',
-                    goals: 'clean install',
+                    pom: 'java-source/pom.xml',
+                    goals: "clean install",
                     deployerId: "MAVEN_DEPLOYER",
                     resolverId: "MAVEN_RESOLVER"
                 )
