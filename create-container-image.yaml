@@ -6,10 +6,10 @@
   - name: Pull .war artifact from Artifactory
     become: true
     get_url:
-      url: http://18.207.136.250:8082/artifactory/iwayq-libs-release-local/com/iwayq/iwayQApp/1.0-RELEASE/iwayQApp-1.0-RELEASE.war
+      url: http://18.144.52.72:8082/artifactory/iwayq-libs-release-local/com/iwayq/iwayQApp/1.0-RELEASE/iwayQApp-1.0-RELEASE.war
       dest: /home/ec2-user
       url_username: admin
-      url_password: Admin123
+      url_password: January@123
 
   - name: Rename .war Artifact
     command: mv iwayQApp-1.0-RELEASE.war iwayq.war
@@ -31,8 +31,8 @@
 
   - name: Log into DockerHub
     docker_login:
-     username: iwayqdockertest
-     password: P2$$w0rd
+     username: somadritiwari2907
+     password: January@123
 
     
   - name: Push to docker hub
