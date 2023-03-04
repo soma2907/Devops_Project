@@ -9,7 +9,7 @@ pipeline {
 
       stage ('Checkout SCM'){
         steps {
-          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://iwayqtech@bitbucket.org/iwayqtech/devops-pipeline-project.git']]])
+          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/soma2907/Devops_Project.git']]])
         }
       }
 	  
@@ -22,39 +22,27 @@ pipeline {
         }
          
       }
-   
-     stage ('SonarQube Analysis') {
-        steps {
-              withSonarQubeEnv('sonar') {
-                
-				dir('java-source'){
-                 sh 'mvn -U clean install sonar:sonar'
-                }
-				
-              }
-            }
-      }
 
     stage ('Artifactory configuration') {
             steps {
                 rtServer (
                     id: "jfrog",
-                    url: "http://18.207.136.250:8082/artifactory",
-                    credentialsId: "jfrog"
+                    url: "http://18.144.52.72:8082",
+                    credentialsId: "Jfrog"
                 )
 
                 rtMavenDeployer (
                     id: "MAVEN_DEPLOYER",
                     serverId: "jfrog",
-                    releaseRepo: "iwayq-libs-release-local",
-                    snapshotRepo: "iwayq-libs-snapshot-local"
+                    releaseRepo: "libs-release",
+                    snapshotRepo: "libs-snapshot"
                 )
 
                 rtMavenResolver (
                     id: "MAVEN_RESOLVER",
                     serverId: "jfrog",
-                    releaseRepo: "iwayq-libs-release",
-                    snapshotRepo: "iwayq-libs-snapshot"
+                    releaseRepo: "libs-release",
+                    snapshotRepo: "libs-snapshot"
                 )
             }
     }
@@ -84,8 +72,8 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "scp -o StrictHostKeyChecking=no Dockerfile ec2-user@3.91.67.214:/home/ec2-user"
-                        sh "scp -o StrictHostKeyChecking=no create-container-image.yaml ec2-user@3.91.67.214:/home/ec2-user"
+                        sh "scp -o StrictHostKeyChecking=no Dockerfile admin@3.101.109.112:/home/admin"
+                        sh "scp -o StrictHostKeyChecking=no create-container-image.yaml admin@3.91.67.214:/home/admin"
                     }
                 }
             
@@ -95,7 +83,7 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.91.67.214 -C \"sudo ansible-playbook create-container-image.yaml\""
+                        sh "ssh -o StrictHostKeyChecking=no admin@3.101.109.112 -C \"sudo ansible-playbook create-container-image.yaml\""
                         
                     }
                 }
@@ -106,28 +94,21 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "scp -o StrictHostKeyChecking=no create-k8s-deployment.yaml ec2-user@3.237.42.29:/home/ec2-user"
-                        sh "scp -o StrictHostKeyChecking=no nodePort.yaml ec2-user@3.237.42.29:/home/ec2-user"
+                        sh "scp -o StrictHostKeyChecking=no create-k8s-deployment.yaml admin@54.151.68.189:/home/admin"
+                        sh "scp -o StrictHostKeyChecking=no nodePort.yaml admin@54.151.68.189:/home/admin"
                     }
                 }
             
         } 
 
-    stage('Waiting for Approvals') {
-            
-        steps{
 
-				input('Test Completed ? Please provide  Approvals for Prod Release ?')
-			  }
-            
-    }     
     stage('Deploy Artifacts to Production') {
             
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.237.42.29 -C \"sudo kubectl apply -f create-k8s-deployment.yaml\""
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.237.42.29 -C \"sudo kubectl apply -f nodePort.yaml\""
+                        sh "ssh -o StrictHostKeyChecking=no admin@54.151.68.189 -C \"sudo kubectl apply -f create-k8s-deployment.yaml\""
+                        sh "ssh -o StrictHostKeyChecking=no admin@54.151.68.189 -C \"sudo kubectl apply -f nodePort.yaml\""
                         
                     }
                 }
