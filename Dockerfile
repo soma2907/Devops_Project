@@ -3,7 +3,7 @@
 FROM tomcat:latest
 
 # Maintainer
-MAINTAINER "PR Reddy - iwayQ" 
+MAINTAINER "somadri - iwayQ" 
 
 # copy war file on to container 
 COPY ./iwayq.war /usr/local/tomcat/webapps
