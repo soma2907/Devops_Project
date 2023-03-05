@@ -26,7 +26,7 @@ pipeline {
     stage ('Artifactory configuration') {
             steps {
                 rtServer (
-                    id: "jfrog",
+                    id: "artifactory",
                     url: "http://18.144.52.72:8082/artifactory",
                     credentialsId: "Jfrog"
                 )
@@ -62,7 +62,7 @@ pipeline {
     stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "jfrog"
+                    serverId: "artifactory"
              )
         }
     }
