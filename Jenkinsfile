@@ -52,7 +52,7 @@ pipeline {
                 rtMavenRun (
                     tool: "maven", // Tool name from Jenkins configuration
                     pom: "java-source/pom.xml",
-                    goals: "clean install",
+                    goals: "clean install -U",
                     deployerId: "MAVEN_DEPLOYER",
                     resolverId: "MAVEN_RESOLVER"
                 )
