@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-	<groupId>com.iwayq</groupId>
-	<artifactId>iwayQApp</artifactId>
-	<version>1.0-RELEASE</version>
-	<packaging>war</packaging>
-	<name>iwayQApp</name>
-	<description>iwayQ DevOps project for Spring Boot</description>
+	    <groupId>com.iwayq</groupId>
+	    <artifactId>iwayQApp</artifactId>
+	    <version>1.0-RELEASE</version>
+	    <packaging>war</packaging>
+	    <name>iwayQApp</name>
+	    <description>iwayQ DevOps project for Spring Boot</description>
 
 	<properties>
 		<java.version>11</java.version>
