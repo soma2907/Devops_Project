@@ -61,8 +61,8 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "scp -o StrictHostKeyChecking=no Dockerfile root@3.101.109.112:/home/admin"
-                        sh "scp -o StrictHostKeyChecking=no create-container-image.yaml root@3.101.109.112:/home/admin"
+                        sh "scp -o StrictHostKeyChecking=no Dockerfile admin@3.101.109.112:/home/admin"
+                        sh "scp -o StrictHostKeyChecking=no create-container-image.yaml admin@3.101.109.112:/home/admin"
                     }
                 }
             
