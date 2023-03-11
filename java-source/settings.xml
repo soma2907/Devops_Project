@@ -8,7 +8,7 @@
       <id>central</id>
     </server>
     <server>
-      <username>January@123</username>
+      <username>admin</username>
       <password>January@123</password>
       <id>snapshots</id>
     </server>
@@ -18,33 +18,33 @@
       <repositories>
         <repository>
           <snapshots>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
           </snapshots>
           <id>central</id>
           <name>libs-release</name>
-          <url>http://18.144.52.72:8082/artifactory/libs-release</url>
+          <url>http://54.241.139.106:8082/artifactory/libs-release</url>
         </repository>
         <repository>
           <snapshots />
           <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://18.144.52.72:8082/artifactory/libs-snapshot</url>
+          <url>http://54.241.139.106:8082/artifactory/libs-snapshot</url>
         </repository>
       </repositories>
       <pluginRepositories>
         <pluginRepository>
           <snapshots>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
           </snapshots>
           <id>central</id>
           <name>libs-release</name>
-          <url>http://18.144.52.72:8082/artifactory/libs-release</url>
+          <url>http://54.241.139.106:8082/artifactory/libs-release</url>
         </pluginRepository>
         <pluginRepository>
           <snapshots />
           <id>snapshots</id>
           <name>libs-snapshot</name>
-          <url>http://18.144.52.72:8082/artifactory/libs-snapshot</url>
+          <url>http://54.241.139.106:8082/artifactory/libs-snapshot</url>
         </pluginRepository>
       </pluginRepositories>
       <id>artifactory</id>
