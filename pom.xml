@@ -70,8 +70,8 @@
 <distributionManagement>
     <repository>
         <id>central</id>
-        <name>ip-172-31-26-204.us-west-1.compute.internal-releases</name>
-        <url>http://18.144.52.72:8082/artifactory/libs-release</url>
+        <name>ip-172-31-6-136.us-west-1.compute.internal-releases</name>
+        <url>http://54.241.139.106:8081/artifactory/libs-release-local</url>
     </repository>
 </distributionManagement>
 </project>
