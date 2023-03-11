@@ -26,21 +26,21 @@ pipeline {
     stage ('Artifactory configuration') {
             steps {
                 rtServer (
-                    id: "artifactory",
-                    url: "http://18.144.52.72:8082/artifactory",
-                    credentialsId: "Jfrog"
+                    id: "jfrog",
+                    url: "http://54.241.139.106:8082",
+                    credentialsId: "jfrog"
                 )
 
                 rtMavenDeployer (
                     id: "MAVEN_DEPLOYER",
-                    serverId: "artifactory",
+                    serverId: "jfrog",
                     releaseRepo: "libs-release-local",
                     snapshotRepo: "libs-snapshot-local"
                 )
 
                 rtMavenResolver (
                     id: "MAVEN_RESOLVER",
-                    serverId: "artifactory",
+                    serverId: "jfrog",
                     releaseRepo: "libs-release-local",
                     snapshotRepo: "libs-snapshot-local"
                 )
@@ -51,7 +51,7 @@ pipeline {
     stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "artifactory"
+                    serverId: "jfrog"
              )
         }
     }
@@ -61,8 +61,8 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "scp -o StrictHostKeyChecking=no Dockerfile admin@3.101.109.112:/home/admin"
-                        sh "scp -o StrictHostKeyChecking=no create-container-image.yaml admin@3.101.109.112:/home/admin"
+                        sh "scp -o StrictHostKeyChecking=no Dockerfile admin@54.176.253.154:/home/admin"
+                        sh "scp -o StrictHostKeyChecking=no create-container-image.yaml admin@54.176.253.154:/home/admin"
                     }
                 }
             
@@ -72,7 +72,7 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "ssh -o StrictHostKeyChecking=no admin@3.101.109.112 -C \"sudo ansible-playbook create-container-image.yaml\""
+                        sh "ssh -o StrictHostKeyChecking=no admin@54.176.253.154 -C \"sudo ansible-playbook create-container-image.yaml\""
                         
                     }
                 }
@@ -83,8 +83,8 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "scp -o StrictHostKeyChecking=no create-k8s-deployment.yaml admin@54.151.68.189:/home/admin"
-                        sh "scp -o StrictHostKeyChecking=no nodePort.yaml admin@54.151.68.189:/home/admin"
+                        sh "scp -o StrictHostKeyChecking=no create-k8s-deployment.yaml admin@13.56.178.241:/home/admin"
+                        sh "scp -o StrictHostKeyChecking=no nodePort.yaml admin@13.56.178.241:/home/admin"
                     }
                 }
             
@@ -96,8 +96,8 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "ssh -o StrictHostKeyChecking=no admin@54.151.68.189 -C \"sudo kubectl apply -f create-k8s-deployment.yaml\""
-                        sh "ssh -o StrictHostKeyChecking=no admin@54.151.68.189 -C \"sudo kubectl apply -f nodePort.yaml\""
+                        sh "ssh -o StrictHostKeyChecking=no admin@13.56.178.241 -C \"sudo kubectl apply -f create-k8s-deployment.yaml\""
+                        sh "ssh -o StrictHostKeyChecking=no admin@13.56.178.241 -C \"sudo kubectl apply -f nodePort.yaml\""
                         
                     }
                 }
