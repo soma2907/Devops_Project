@@ -83,8 +83,8 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "sudo scp -o StrictHostKeyChecking=no create-k8s-deployment.yaml admin@13.56.178.241:/home/admin"
-                        sh "sudo scp -o StrictHostKeyChecking=no nodePort.yaml admin@13.56.178.241:/home/admin"
+                        sh "sudo su scp -o StrictHostKeyChecking=no create-k8s-deployment.yaml admin@13.56.178.241:/home/admin"
+                        sh "sudo su scp -o StrictHostKeyChecking=no nodePort.yaml admin@13.56.178.241:/home/admin"
                     }
                 }
             
