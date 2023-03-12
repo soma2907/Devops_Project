@@ -61,8 +61,8 @@ pipeline {
             steps {
                   sshagent(['sshkey']) {
                        
-                        sh "scp -r StrictHostKeyChecking=no /var/lib/jenkins/workspace/DevopsProject/Dockerfile admin@54.176.253.154:/home/admin"
-                        sh "scp -r StrictHostKeyChecking=no /var/lib/jenkins/workspace/DevopsProject/create-container-image.yaml admin@54.176.253.154:/home/admin"
+                        sh "scp -r  /var/lib/jenkins/workspace/DevopsProject/Dockerfile admin@54.176.253.154:~/home/admin"
+                        sh "scp -r  /var/lib/jenkins/workspace/DevopsProject/create-container-image.yaml admin@54.176.253.154:~/home/admin"
                     }
                 }
             
